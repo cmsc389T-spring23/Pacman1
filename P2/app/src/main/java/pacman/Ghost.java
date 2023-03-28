@@ -50,10 +50,10 @@ public class Ghost {
         Location newLocation = myLoc.shift(dx, dy);
 
         if (myMap.getLoc(newLocation).contains(Map.Type.PACMAN))
-          return false;
+          return true;
       }
     }
-    return true;
+    return false;
   }
   
 
