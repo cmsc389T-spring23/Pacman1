@@ -50,11 +50,11 @@ public class PacMan {
         Location newLocation = myLoc.shift(dx, dy);
 
         if (myMap.getLoc(newLocation).contains(Map.Type.GHOST))
-          return true;
+          return false;
       }
     }
 
-    return false;
+    return true;
   }
 
   public JComponent consume() {
