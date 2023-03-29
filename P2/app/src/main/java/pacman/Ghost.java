@@ -3,6 +3,7 @@ package pacman;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+
 public class Ghost {
   String myName;
   Location myLoc;
@@ -36,25 +37,25 @@ public class Ghost {
     int choice = (int) (Math.random() * validMoves.size());
 
     if (validMoves.size() == 0 ||
-        myMap.move(myName, validMoves.get(choice), Map.Type.PACMAN))
+        myMap.move(myName, validMoves.get(choice), Map.Type.GHOST))
       return false;
 
     this.myLoc = validMoves.get(choice);
-    return false;
+    return true;
   }
 
   public boolean is_pacman_in_range() {
     for (int dx = -1; dx <= 1; dx++) {
       for (int dy = -1; dy <= 1; dy++) {
-        Location newLocation = myLoc.shift(dy, dx);
+        Location newLocation = myLoc.shift(dx, dy);
 
-        if (myMap.getLoc(newLocation).contains(Map.Type.COOKIE))
+        if (myMap.getLoc(newLocation).contains(Map.Type.PACMAN))
           return true;
       }
     }
-
     return false;
   }
+  
 
   public boolean attack() {
     return is_pacman_in_range() || myMap.attack(myName);
