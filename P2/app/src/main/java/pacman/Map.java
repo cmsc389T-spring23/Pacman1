@@ -71,9 +71,9 @@ public class Map {
   public HashSet<Type> getLoc(Location loc) {
     // boundary check
     if (loc.x < 0 || loc.x >= dim || loc.y < 0 || loc.y >= dim)
-      return emptySet;
-    if (!field.containsKey(loc) || field.get(loc).size() == 0)
       return wallSet;
+    if (!field.containsKey(loc) || field.get(loc).size() == 0)
+      return emptySet;
 
     return field.get(loc);
   }
@@ -84,6 +84,10 @@ public class Map {
   }
 
   public JComponent eatCookie(String name) {
-    return null;
+    Location cookieLoc = locations.get(name);
+    String cookieId = "tok_x" + cookieLoc.x + "_y" + cookieLoc.y;
+    field.get(cookieLoc).remove(Map.Type.COOKIE);
+    cookies++;
+    return components.get(cookieId);
   }
 }

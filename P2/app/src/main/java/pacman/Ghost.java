@@ -37,7 +37,7 @@ public class Ghost {
     int choice = (int) (Math.random() * validMoves.size());
 
     if (validMoves.size() == 0 ||
-        myMap.move(myName, validMoves.get(choice), Map.Type.GHOST))
+        !myMap.move(myName, validMoves.get(choice), Map.Type.GHOST))
       return false;
 
     this.myLoc = validMoves.get(choice);
@@ -58,6 +58,6 @@ public class Ghost {
   
 
   public boolean attack() {
-    return is_pacman_in_range() || myMap.attack(myName);
+    return is_pacman_in_range() && myMap.attack(myName);
   }
 }

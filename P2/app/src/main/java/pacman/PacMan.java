@@ -23,12 +23,10 @@ public class PacMan {
         Location newLocation = myLoc.shift(dx, dy);
 
         HashSet<Map.Type> types = myMap.getLoc(newLocation);
-        if (types.contains(Map.Type.EMPTY) || types.contains(Map.Type.COOKIE)){
-              validMoves.add(newLocation);
-            }
+        if (types.contains(Map.Type.EMPTY) || (types.size() == 1 && types.contains(Map.Type.COOKIE)))
+          validMoves.add(newLocation);
       }
     }
-    System.out.println(validMoves.size());
 
     return validMoves;
   }
@@ -38,7 +36,7 @@ public class PacMan {
     int choice = (int) (Math.random() * validMoves.size());
 
     if (validMoves.size() == 0 ||
-        myMap.move(myName, validMoves.get(choice), Map.Type.PACMAN))
+        !myMap.move(myName, validMoves.get(choice), Map.Type.PACMAN))
       return false;
 
     this.myLoc = validMoves.get(choice);
@@ -59,6 +57,9 @@ public class PacMan {
   }
 
   public JComponent consume() {
-    return new CookieComponent(0, 0, 20);
+    if (myMap.getLoc(myLoc).contains(Map.Type.COOKIE))
+      return myMap.eatCookie(myName);
+    
+    return null;
   }
 }
